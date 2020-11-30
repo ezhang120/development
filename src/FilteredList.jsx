@@ -52,9 +52,9 @@ export default class FilteredList extends React.Component{
                 { key: 11, agg: 0, img: "https://images-na.ssl-images-amazon.com/images/I/81aptnwdiuL._AC_SX679_.jpg", size: "Medium", color: "Purple", num: 10}
             ]
             this.setState({order: event});
-            let sorted = original;
-            sorted.map((item) => item.agg = this.state.sorted[item.key].agg)
-            this.setState({sorted:sorted})
+            let og = original;
+            og.map((item) => item.agg = this.state.agg[item.key])
+            this.setState({sorted:og})
         }
         else if(event === "Low to High"){
             this.setState({order: event});
@@ -114,7 +114,6 @@ export default class FilteredList extends React.Component{
     }
 
     inCart = (item) => {
-        this.props.list[item.key].agg = this.state.sorted[item.key].agg
         if(item.agg > 0){
             return true
         }
@@ -201,6 +200,7 @@ export default class FilteredList extends React.Component{
                         {
                         <Card style={{ minWidth: '24 rem' }}>
                         <Card.Header>Basket</Card.Header>
+                                <br></br>
                                 <Card.Title>
                                     Total Pom Poms: {this.state.qty}
                                 </Card.Title>
