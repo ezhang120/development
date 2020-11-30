@@ -39,17 +39,6 @@ export default class DisplayList extends React.Component{
         
     }
 
-    calculateTotal = () => {
-        var qty = this.props.state.qty
-        const totalArr = this.props.list.map((item) => item.agg*item.num)
-        const reducer = (accumulator, currentValue) => accumulator + currentValue;
-        qty = totalArr.reduce(reducer)
-        this.setState({
-            qty:qty
-        })
-        console.log(this.props.state.qty)
-    }
-
 
     render(){
         // const half = this.props.list.length/2
@@ -57,6 +46,7 @@ export default class DisplayList extends React.Component{
         // const last = this.props.list.slice(half)
         return(
             <div style = {{display: 'flex', justifyContent:'space-around'}}>
+                {/* <FilteredList addClick = {this.addClick} removeClick = {this.removeClick}/> */}
                 <div>
                 {this.props.list.map((item) =>
                     <div style = {{marginTop: '1rem'}}>
@@ -71,11 +61,11 @@ export default class DisplayList extends React.Component{
                                     Color: {item.color}<br></br>
                                     Quantity: {item.num}
                                 </Card.Text>
-                                <Button onClick={() =>{this.addClick(item); this.calculateTotal()}} variant="primary">Add to Cart</Button> <br></br>
+                                <Button onClick={() =>{this.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
                                 <Card.Text>
                                     
                                 </Card.Text>
-                                <Button onClick = {() => {this.removeClick(item); this.calculateTotal()}} variant="primary">Remove from Cart</Button>
+                                <Button onClick = {() => {this.removeClick(item); this.props.calculateTotal();}} variant="primary">Remove from Cart</Button>
                             </Card.Body>
                         </Card>
                     </div>
