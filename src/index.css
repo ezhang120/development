@@ -29,6 +29,6 @@ code {
 }
 .button-div{
   display:grid;
-  grid-template-columns: 30% 30%;
-  column-gap: 5px;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  column-gap: 10px;
 }

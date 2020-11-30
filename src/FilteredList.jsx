@@ -115,10 +115,7 @@ export default class FilteredList extends React.Component{
 
     inCart = (item) => {
         this.props.list[item.key].agg = this.state.sorted[item.key].agg
-        // console.log(this.setState.sorted)
-        // console.log(this.props.list)
         if(item.agg > 0){
-            // console.log("true")
             return true
         }
         else{
@@ -141,20 +138,17 @@ export default class FilteredList extends React.Component{
     }
 
     addClick = (item) => {
-        
         let agg = this.state.agg
         agg[item.key] = agg[item.key] + 1
         this.setState({
             agg:agg
         })
-        // console.log(this.state.agg[key])
         item.agg = this.state.agg[item.key]
         console.log("AGG")
         console.log(this.state.agg[item.key])
     }
     
     removeClick = (item) => {
-        // {console.log(key)}
         let agg = this.state.agg
         if (agg[item.key] > 0){
             agg[item.key] = agg[item.key] - 1
@@ -163,7 +157,6 @@ export default class FilteredList extends React.Component{
             })
             item.agg =  this.state.agg[item.key]
         }
-        // console.log(this.state.agg[key])
         
     };
 
@@ -218,14 +211,16 @@ export default class FilteredList extends React.Component{
                                             <Card.Img variant="top" src={item.img} />
                                             <Card.Body>
                                                 <Card.Text>
-                                                    Number of Sets: {item.agg}<br></br>
-                                                    Individual Quantity: {item.num}
+                                                   Individual Quantity: {item.num}<br></br>
+                                                    Number of Sets:
                                                 </Card.Text>
                                                     <div class = "button-div">
-                                                        <Button onClick={() =>{this.addClick(item); this.calculateTotal();}} variant="primary"> + </Button> <br></br>
+                                                        <Button onClick={() =>{this.addClick(item); this.calculateTotal();}} variant="primary"> + </Button>
+                                                        <Card.Text> {item.agg} </Card.Text>
                                                         <Button onClick = {() => {this.removeClick(item); this.calculateTotal();}} variant="primary"> - </Button>
                                                     </div>
-                                                    <Button onClick = {() => {this.remove(item);}} variant="primary"> Remove </Button>
+                                                    <br></br>
+                                                    <Button onClick = {() => {this.remove(item);}} variant="primary"> Remove from cart </Button>
                                             </Card.Body>
                                         </Card>
                                     </div>
