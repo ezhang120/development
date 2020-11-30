@@ -13,6 +13,7 @@ export default class FilteredList extends React.Component{
 
         this.state = {
             qty: 0,
+            agg: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             sorted: [
                 { key: 0, agg: 0, img: "https://imgprd19.hobbylobby.com/8/af/53/8af53111e4081aabf5cd6046d0cf8ab74fa6b82c/350Wx350H-506485-0120-px.jpg", size: "Small", color: "Purple", num: 30},
                 { key: 1, agg: 0, img: "https://ilovecheer.com/wp-content/uploads/2018/01/LVCPMS0066-1.png", size: "Large", color: "Orange", num: 1},
@@ -127,14 +128,53 @@ export default class FilteredList extends React.Component{
 
     calculateTotal = () => {
         var qty = this.state.qty
+        console.log("Before")
+        console.log(this.state.qty)
         const totalArr = this.state.sorted.map((item) => item.agg*item.num)
         const reducer = (accumulator, currentValue) => accumulator + currentValue;
         qty = totalArr.reduce(reducer)
         this.setState({
             qty:qty
         })
-        // console.log(this.state.qty)
+        console.log("After")
+        console.log(this.state.qty)
     }
+
+    addClick = (item) => {
+        
+        let agg = this.state.agg
+        agg[item.key] = agg[item.key] + 1
+        this.setState({
+            agg:agg
+        })
+        // console.log(this.state.agg[key])
+        item.agg = this.state.agg[item.key]
+        console.log("AGG")
+        console.log(this.state.agg[item.key])
+    }
+    
+    removeClick = (item) => {
+        // {console.log(key)}
+        let agg = this.state.agg
+        if (agg[item.key] > 0){
+            agg[item.key] = agg[item.key] - 1
+            this.setState({
+                agg:agg
+            })
+            item.agg =  this.state.agg[item.key]
+        }
+        // console.log(this.state.agg[key])
+        
+    };
+
+    remove = (item) => {
+        let agg = this.state.agg
+        agg[item.key] = 0
+        this.setState({
+            agg:agg
+        })
+        item.agg =  this.state.agg[item.key]
+    };
 
     render(){
         return (
@@ -162,8 +202,7 @@ export default class FilteredList extends React.Component{
                         <Nav.Item><Nav.Link eventKey = "Low to High" onSelect = {this.sortByNum}>Low to High</Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link eventKey = "High to Low" onSelect = {this.sortByNum}>High to Low</Nav.Link></Nav.Item>
                     </Navbar>
-                    {/* <DisplayList list = {this.state.sorted.filter(this.matchesFilter)} calculateTotal = {this.calculateTotal}/> */}
-                    <DisplayList list = {this.state.sorted} calculateTotal = {this.calculateTotal}/>
+                    <DisplayList list = {this.state.sorted} calculateTotal = {this.calculateTotal} agg = {this.state.agg} addClick = {this.addClick} removeClick = {this.removeClick}/>
                     </div>
                     <div style = {{marginTop: '1rem'}}>
                         {
@@ -173,7 +212,7 @@ export default class FilteredList extends React.Component{
                                     Total Pom Poms: {this.state.qty}
                                 </Card.Title>
                             <Card.Body>
-                                {this.props.list.filter(this.inCart).map((item) =>
+                                {this.state.sorted.filter(this.inCart).map((item) =>
                                     <div style = {{marginTop: '1rem'}}>
                                         <Card style={{ width: '12rem' }}>
                                             <Card.Img variant="top" src={item.img} />
@@ -181,12 +220,12 @@ export default class FilteredList extends React.Component{
                                                 <Card.Text>
                                                     Number of Sets: {item.agg}<br></br>
                                                     Individual Quantity: {item.num}
-                                                    </Card.Text>
-                                                    {/* <Button onClick={() =>{this.props.addClick(item); this.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
-                                                    <Card.Text>
-                                                        
-                                                    </Card.Text>
-                                                    <Button onClick = {() => {this.props.removeClick(item); this.calculateTotal();}} variant="primary">Remove from Cart</Button> } */}
+                                                </Card.Text>
+                                                    <div class = "button-div">
+                                                        <Button onClick={() =>{this.addClick(item); this.calculateTotal();}} variant="primary"> + </Button> <br></br>
+                                                        <Button onClick = {() => {this.removeClick(item); this.calculateTotal();}} variant="primary"> - </Button>
+                                                    </div>
+                                                    <Button onClick = {() => {this.remove(item);}} variant="primary"> Remove </Button>
                                             </Card.Body>
                                         </Card>
                                     </div>

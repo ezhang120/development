@@ -27,3 +27,8 @@ code {
   display: flex;
   align-self: center;
 }
+.button-div{
+  display:grid;
+  grid-template-columns: 30% 30%;
+  column-gap: 5px;
+}

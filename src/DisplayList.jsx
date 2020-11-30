@@ -8,37 +8,37 @@ export default class DisplayList extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            agg: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        }
+        // this.state = {
+        //     agg: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        // }
     }
 
-    addClick = (item) => {
+    // addClick = (item) => {
         
-        let agg = this.state.agg
-        // console.log(this.state.agg)
-        agg[item.key] = agg[item.key] + 1
-        this.setState({
-            agg:agg
-        })
-        // console.log(this.state.agg[key])
-        item.agg = this.state.agg[item.key]
+    //     let agg = this.state.agg
+    //     // console.log(this.state.agg)
+    //     agg[item.key] = agg[item.key] + 1
+    //     this.setState({
+    //         agg:agg
+    //     })
+    //     // console.log(this.state.agg[key])
+    //     item.agg = this.state.agg[item.key]
 
-    }
+    // }
     
-    removeClick = (item) => {
-        // {console.log(key)}
-        let agg = this.state.agg
-        if (agg[item.key] > 0){
-            agg[item.key] = agg[item.key] - 1
-            this.setState({
-                agg:agg
-            })
-            item.agg =  this.state.agg[item.key]
-        }
-        // console.log(this.state.agg[key])
+    // removeClick = (item) => {
+    //     // {console.log(key)}
+    //     let agg = this.state.agg
+    //     if (agg[item.key] > 0){
+    //         agg[item.key] = agg[item.key] - 1
+    //         this.setState({
+    //             agg:agg
+    //         })
+    //         item.agg =  this.state.agg[item.key]
+    //     }
+    //     // console.log(this.state.agg[key])
         
-    }
+    // }
 
 
     render(){
@@ -60,11 +60,11 @@ export default class DisplayList extends React.Component{
                                         Color: {item.color}<br></br>
                                         Quantity: {item.num}
                                     </Card.Text>
-                                    <Button onClick={() =>{this.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
+                                    <Button onClick={() =>{this.props.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
                                     <Card.Text>
                                         
                                     </Card.Text>
-                                    <Button onClick = {() => {this.removeClick(item); this.props.calculateTotal();}} variant="primary">Remove from Cart</Button>
+                                    <Button onClick = {() => {this.props.removeClick(item); this.props.calculateTotal();}} variant="primary">Remove from Cart</Button>
                                 </Card.Body>
                             </Card>
                         </div>
