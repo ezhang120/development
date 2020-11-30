@@ -4,8 +4,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import './index.css';
 
 export default class FilteredList extends React.Component{
+
     constructor(props){
         super(props);
 
@@ -25,7 +27,16 @@ export default class FilteredList extends React.Component{
                 { key: 10, agg: 0, img: "https://cdn-fsly.yottaa.net/551561a7312e580499000a44/www.joann.com/v~4b.ad/dw/image/v2/AAMM_PRD/on/demandware.static/-/Sites-joann-product-catalog/default/dwfba237fa/images/hi-res/alt/16650780ALT1.jpg?sw=556&sh=680&sm=fit&yocs=5t_5G_5E_", size: "Small", color: "Orange", num: 15},
                 { key: 11, agg: 0, img: "https://images-na.ssl-images-amazon.com/images/I/81aptnwdiuL._AC_SX679_.jpg", size: "Medium", color: "Purple", num: 10}
                ],
-            original: [
+            order: "Default",
+            size: "All",
+            color: "All"
+        }
+    }
+
+    
+    sortByNum = (event) => {
+        if(event === "Default"){
+            const original= [
                 { key: 0, agg: 0, img: "https://imgprd19.hobbylobby.com/8/af/53/8af53111e4081aabf5cd6046d0cf8ab74fa6b82c/350Wx350H-506485-0120-px.jpg", size: "Small", color: "Purple", num: 30},
                 { key: 1, agg: 0, img: "https://ilovecheer.com/wp-content/uploads/2018/01/LVCPMS0066-1.png", size: "Large", color: "Orange", num: 1},
                 { key: 2, agg: 0, img: "https://cdn.shopify.com/s/files/1/1169/5498/products/troll-pom-pom-color-purple-paradise-fibers_600x.png?v=1603221545", size: "Large", color: "Purple", num: 1},
@@ -38,20 +49,13 @@ export default class FilteredList extends React.Component{
                 { key: 9, agg: 0, img: "https://www.beadsdirect.co.uk/storage/app/uploads/public/52a/9f6/44d/thumb__1000_1000_0_0_crop.jpg", size: "Large", color: "Blue", num: 2},
                 { key: 10, agg: 0, img: "https://cdn-fsly.yottaa.net/551561a7312e580499000a44/www.joann.com/v~4b.ad/dw/image/v2/AAMM_PRD/on/demandware.static/-/Sites-joann-product-catalog/default/dwfba237fa/images/hi-res/alt/16650780ALT1.jpg?sw=556&sh=680&sm=fit&yocs=5t_5G_5E_", size: "Small", color: "Orange", num: 15},
                 { key: 11, agg: 0, img: "https://images-na.ssl-images-amazon.com/images/I/81aptnwdiuL._AC_SX679_.jpg", size: "Medium", color: "Purple", num: 10}
-               ],
-            order: "Default",
-            size: "All",
-            color: "All"
-        }
-    }
-
-    sortByNum = (event) => {
-        if(event === "Default"){
+            ]
             this.setState({order: event});
-            let sorted = this.state.original;
+            let sorted = original;
+            sorted.map((item) => item.agg = this.state.sorted[item.key].agg)
             this.setState({sorted:sorted})
         }
-        if(event === "Low to High"){
+        else if(event === "Low to High"){
             this.setState({order: event});
             let sorted = this.state.sorted
             sorted.sort((a,b) => a.num - b.num);
@@ -110,8 +114,8 @@ export default class FilteredList extends React.Component{
 
     inCart = (item) => {
         this.props.list[item.key].agg = this.state.sorted[item.key].agg
-        console.log(this.setState.sorted)
-        console.log(this.props.list)
+        // console.log(this.setState.sorted)
+        // console.log(this.props.list)
         if(item.agg > 0){
             // console.log("true")
             return true
@@ -137,7 +141,7 @@ export default class FilteredList extends React.Component{
             <div>
                 <h1><br></br>Pom Pom Shop<br></br></h1>
                 <div style = {{display: 'flex', justifyContent:'space-around'}}>
-                    <div>
+                    <div class="full-wrapper">
                     <Navbar>
                         <Navbar.Brand>Filter by Size</Navbar.Brand>
                         <Nav.Item><Nav.Link eventKey = "All" onSelect = {this.onSelectFilterSize}>All</Nav.Link></Nav.Item>
@@ -158,7 +162,8 @@ export default class FilteredList extends React.Component{
                         <Nav.Item><Nav.Link eventKey = "Low to High" onSelect = {this.sortByNum}>Low to High</Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link eventKey = "High to Low" onSelect = {this.sortByNum}>High to Low</Nav.Link></Nav.Item>
                     </Navbar>
-                    <DisplayList list = {this.state.sorted.filter(this.matchesFilter)} calculateTotal = {this.calculateTotal}/>
+                    {/* <DisplayList list = {this.state.sorted.filter(this.matchesFilter)} calculateTotal = {this.calculateTotal}/> */}
+                    <DisplayList list = {this.state.sorted} calculateTotal = {this.calculateTotal}/>
                     </div>
                     <div style = {{marginTop: '1rem'}}>
                         {
@@ -168,7 +173,7 @@ export default class FilteredList extends React.Component{
                                     Total Pom Poms: {this.state.qty}
                                 </Card.Title>
                             <Card.Body>
-                                {this.state.sorted.filter(this.inCart).map((item) =>
+                                {this.props.list.filter(this.inCart).map((item) =>
                                     <div style = {{marginTop: '1rem'}}>
                                         <Card style={{ width: '12rem' }}>
                                             <Card.Img variant="top" src={item.img} />

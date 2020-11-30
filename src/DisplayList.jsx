@@ -2,6 +2,7 @@ import React from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import FilteredList from './FilteredList';
+import './index.css';
 
 export default class DisplayList extends React.Component{
     constructor(props){
@@ -45,54 +46,31 @@ export default class DisplayList extends React.Component{
         // const first = this.props.list.slice(0, half)
         // const last = this.props.list.slice(half)
         return(
-            <div style = {{display: 'flex', justifyContent:'space-around'}}>
-                {/* <FilteredList addClick = {this.addClick} removeClick = {this.removeClick}/> */}
-                <div>
-                {this.props.list.map((item) =>
-                    <div style = {{marginTop: '1rem'}}>
-                        {/* {console.log("ITEM")}
-                        {console.log(item)} */}
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={item.img} />
-                            <Card.Body>
-                                <Card.Text>
-                                    Agg: {item.agg}<br></br>
-                                    Size: {item.size} <br></br>
-                                    Color: {item.color}<br></br>
-                                    Quantity: {item.num}
-                                </Card.Text>
-                                <Button onClick={() =>{this.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
-                                <Card.Text>
-                                    
-                                </Card.Text>
-                                <Button onClick = {() => {this.removeClick(item); this.props.calculateTotal();}} variant="primary">Remove from Cart</Button>
-                            </Card.Body>
-                        </Card>
-                    </div>
-                )}
-                </div>
-                {/* <div>
-                {last.map((item) =>
-                    <div style = {{marginTop: '1rem'}}>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={item.img} />
-                            <Card.Body>
-                                <Card.Text>
-                                    Size: {item.size} <br></br>
-                                    Color: {item.color}<br></br>
-                                    Quantity: {item.num}
-                                </Card.Text>
-                                <Button onClick = {this.addClick} variant="primary">Add to Cart</Button> <br></br>
-                                <Card.Text>
-                                    
-                                </Card.Text>
-                                <Button onClick = {this.removeClick} variant="primary">Remove from Cart</Button>
-                            </Card.Body>
-                        </Card>
-                    </div>
+                <div class="main-wrapper">
+                    {this.props.list.map((item) =>
+                        <div class="shelf">
+                            {/* {console.log("ITEM")}
+                            {console.log(item)} */}
+                            <Card style={{ width: '18rem' }}>
+                                <Card.Img variant="top" src={item.img} />
+                                <Card.Body>
+                                    <Card.Text>
+                                        Agg: {item.agg}<br></br>
+                                        Size: {item.size} <br></br>
+                                        Color: {item.color}<br></br>
+                                        Quantity: {item.num}
+                                    </Card.Text>
+                                    <Button onClick={() =>{this.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
+                                    <Card.Text>
+                                        
+                                    </Card.Text>
+                                    <Button onClick = {() => {this.removeClick(item); this.props.calculateTotal();}} variant="primary">Remove from Cart</Button>
+                                </Card.Body>
+                            </Card>
+                        </div>
                     )}
-                </div> */}
-            </div>
+                </div>
+            
             
             
         )
