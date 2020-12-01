@@ -1,6 +1,5 @@
 import './App.css';
 import React from "react"
-import DisplayList from "./DisplayList"
 import FilteredList from "./FilteredList"
 import 'bootstrap/dist/css/bootstrap.min.css';
 <link
@@ -10,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
   crossorigin="anonymous"
 />
 
+/*
+* This class holds the original list of items and passes the list to FilteredList
+*/
 function App() {
   var productList = [
     { key: 0, agg: 0, img: "https://imgprd19.hobbylobby.com/8/af/53/8af53111e4081aabf5cd6046d0cf8ab74fa6b82c/350Wx350H-506485-0120-px.jpg", size: "Small", color: "Purple", num: 30},
@@ -29,7 +31,6 @@ function App() {
   return (
     <div className="App">
       <FilteredList list = {productList} />
-      
     </div>
   );
 }

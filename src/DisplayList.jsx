@@ -1,9 +1,11 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import FilteredList from './FilteredList';
 import './index.css';
 
+/*
+*   This class is responsible for rendering the list of items
+*/
 export default class DisplayList extends React.Component{
     constructor(props){
         super(props);
@@ -13,6 +15,7 @@ export default class DisplayList extends React.Component{
     render(){
         return(
                 <div class="main-wrapper">
+                    {/* Map the items in the prop list passed in from FilteredList so the item is displayed in a card */}
                     {this.props.list.map((item) =>
                         <div class="shelf">
                             <Card style={{ width: '18rem' }}>
@@ -23,6 +26,7 @@ export default class DisplayList extends React.Component{
                                         Color: {item.color}<br></br>
                                         Quantity: {item.num}
                                     </Card.Text>
+                                    {/* If a button is clicked, call the appropriate handlers to change the value of the total agg */}
                                     <Button onClick={() =>{this.props.addClick(item); this.props.calculateTotal();}} variant="primary">Add to Cart</Button> <br></br>
                                     <Card.Text>
                                         
