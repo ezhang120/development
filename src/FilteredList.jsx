@@ -166,11 +166,12 @@ export default class FilteredList extends React.Component{
             agg:agg
         })
         item.agg =  this.state.agg[item.key]
+        this.calculateTotal();
     };
 
     render(){
         return (
-            <div>
+            <div class = "giant-wrap">
                 <h1><br></br>Pom Pom Shop<br></br></h1>
                 <div style = {{display: 'flex', justifyContent:'space-around'}}>
                     <div class="full-wrapper">
@@ -194,7 +195,7 @@ export default class FilteredList extends React.Component{
                         <Nav.Item><Nav.Link eventKey = "Low to High" onSelect = {this.sortByNum}>Low to High</Nav.Link></Nav.Item>
                         <Nav.Item><Nav.Link eventKey = "High to Low" onSelect = {this.sortByNum}>High to Low</Nav.Link></Nav.Item>
                     </Navbar>
-                    <DisplayList list = {this.state.sorted} calculateTotal = {this.calculateTotal} agg = {this.state.agg} addClick = {this.addClick} removeClick = {this.removeClick}/>
+                    <DisplayList list = {this.state.sorted.filter(this.matchesFilter)} calculateTotal = {this.calculateTotal} agg = {this.state.agg} addClick = {this.addClick} removeClick = {this.removeClick}/>
                     </div>
                     <div style = {{marginTop: '1rem'}}>
                         {
