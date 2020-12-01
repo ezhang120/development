@@ -45,3 +45,5 @@ How the user trigger state changes:
 
     The state for the overall total number of pompoms for an item is changed by the onClick function for the add and remove buttons: 
     calculateTotal because I want to recalculate the total everytime a new item is added or removed from the aggregator. 
+
+I acknowledge that it is not good practice to use images from online urls in apps. However, I had a lot of trouble downloading and using images locally.
